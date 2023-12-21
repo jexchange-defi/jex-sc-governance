@@ -1,0 +1,19 @@
+{
+  "steps": [
+    {
+      "step": "externalSteps",
+      "path": "deploy.scen.json"
+    },
+    {
+      "step": "scQuery",
+      "tx": {
+        "to": "sc:gov",
+        "function": "getVotingPower",
+        "arguments": ["address:user"]
+      },
+      "expect": {
+        "out": [""]
+      }
+    }
+  ]
+}

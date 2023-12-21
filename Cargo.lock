@@ -842,6 +842,7 @@ checksum = "b1a46d1a171d865aa5f83f92695765caa047a9b4cbae2cbf37dbd613a793fd4c"
 name = "jex-sc-governance"
 version = "0.0.0"
 dependencies = [
+ "locker-mock",
  "multiversx-sc",
  "multiversx-sc-scenario",
  "num-bigint",
@@ -891,6 +892,13 @@ checksum = "3c168f8615b12bc01f9c17e2eb0cc07dcae1940121185446edc3744920e8ef45"
 dependencies = [
  "autocfg",
  "scopeguard",
+]
+
+[[package]]
+name = "locker-mock"
+version = "0.0.0"
+dependencies = [
+ "multiversx-sc",
 ]
 
 [[package]]

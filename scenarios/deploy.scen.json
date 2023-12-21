@@ -13,6 +13,11 @@
         {
           "creatorAddress": "address:owner",
           "creatorNonce": "1",
+          "newAddress": "sc:locker"
+        },
+        {
+          "creatorAddress": "address:owner",
+          "creatorNonce": "2",
           "newAddress": "sc:gov"
         }
       ]
@@ -22,7 +27,7 @@
       "id": "deploy",
       "tx": {
         "from": "address:owner",
-        "contractCode": "file:../output/jex-sc-governance.wasm",
+        "contractCode": "file:../locker-mock/output/locker-mock.wasm",
         "arguments": [],
         "gasLimit": "5,000,000",
         "gasPrice": "0"
@@ -33,6 +38,36 @@
         "logs": [],
         "gas": "*",
         "refund": "*"
+      }
+    },
+    {
+      "step": "scDeploy",
+      "id": "deploy",
+      "tx": {
+        "from": "address:owner",
+        "contractCode": "file:../output/jex-sc-governance.wasm",
+        "arguments": ["sc:locker"],
+        "gasLimit": "5,000,000",
+        "gasPrice": "0"
+      },
+      "expect": {
+        "out": [],
+        "status": "",
+        "logs": [],
+        "gas": "*",
+        "refund": "*"
+      }
+    },
+    {
+      "step": "checkState",
+      "accounts": {
+        "sc:gov": {
+          "code": "*",
+          "storage": {
+            "str:sc_locker_address": "sc:locker"
+          }
+        },
+        "+": ""
       }
     }
   ]

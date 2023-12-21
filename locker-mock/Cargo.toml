@@ -1,5 +1,5 @@
 [package]
-name = "jex-sc-governance"
+name = "locker-mock"
 version = "0.0.0"
 authors = [ "you",]
 edition = "2018"
@@ -16,6 +16,3 @@ version = "0.45.2"
 
 [dev-dependencies.multiversx-sc-scenario]
 version = "0.45.2"
-
-[dev-dependencies.locker-mock]
-path = "locker-mock"

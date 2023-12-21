@@ -1,0 +1,42 @@
+{
+  "steps": [
+    {
+      "step": "externalSteps",
+      "path": "deploy.scen.json"
+    },
+    {
+      "step": "setState",
+      "accounts": {
+        "address:owner": {
+          "nonce": "2",
+          "balance": "0"
+        },
+        "address:user": {
+          "nonce": "1",
+          "balance": "0"
+        },
+        "sc:locker": {
+          "code": "file:../locker-mock/output/locker-mock.wasm",
+          "owner": "address:owner",
+          "storage": {
+            "str:lock_of|address:user": "biguint:10000,000000000000000000|u64:1180"
+          }
+        }
+      },
+      "currentBlockInfo": {
+        "blockEpoch": "1000"
+      }
+    },
+    {
+      "step": "scQuery",
+      "tx": {
+        "to": "sc:gov",
+        "function": "getVotingPower",
+        "arguments": ["address:user"]
+      },
+      "expect": {
+        "out": ["40000,000000000000000000"]
+      }
+    }
+  ]
+}

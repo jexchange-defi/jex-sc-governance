@@ -5,9 +5,9 @@
 ////////////////////////////////////////////////////
 
 // Init:                                 1
-// Endpoints:                            3
+// Endpoints:                            1
 // Async Callback (empty):               1
-// Total number of exported functions:   5
+// Total number of exported functions:   3
 
 #![no_std]
 
@@ -19,12 +19,10 @@ multiversx_sc_wasm_adapter::allocator!();
 multiversx_sc_wasm_adapter::panic_handler!();
 
 multiversx_sc_wasm_adapter::endpoints! {
-    jex_sc_governance
+    locker_mock
     (
         init => init
-        upgrade => upgrade
-        getVotingPower => get_voting_power
-        getLockerScAddress => sc_locker_address
+        getLockOf => get_lock_of
     )
 }
 
