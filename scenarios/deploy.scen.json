@@ -1,0 +1,39 @@
+{
+  "name": "jex-sc-governance",
+  "steps": [
+    {
+      "step": "setState",
+      "accounts": {
+        "address:owner": {
+          "nonce": "1",
+          "balance": "0"
+        }
+      },
+      "newAddresses": [
+        {
+          "creatorAddress": "address:owner",
+          "creatorNonce": "1",
+          "newAddress": "sc:gov"
+        }
+      ]
+    },
+    {
+      "step": "scDeploy",
+      "id": "deploy",
+      "tx": {
+        "from": "address:owner",
+        "contractCode": "file:../output/jex-sc-governance.wasm",
+        "arguments": [],
+        "gasLimit": "5,000,000",
+        "gasPrice": "0"
+      },
+      "expect": {
+        "out": [],
+        "status": "",
+        "logs": [],
+        "gas": "*",
+        "refund": "*"
+      }
+    }
+  ]
+}
