@@ -4,6 +4,10 @@ fn world() -> ScenarioWorld {
     let mut blockchain = ScenarioWorld::new();
 
     blockchain.register_contract(
+        "file:locker-mock/output/locker-mock.wasm",
+        locker_mock::ContractBuilder,
+    );
+    blockchain.register_contract(
         "file:output/jex-sc-governance.wasm",
         jex_sc_governance::ContractBuilder,
     );
@@ -11,6 +15,6 @@ fn world() -> ScenarioWorld {
 }
 
 #[test]
-fn empty_rs() {
-    world().run("scenarios/empty.scen.json");
+fn test_rs() {
+    world().run("scenarios/create_proposal.scen.json");
 }

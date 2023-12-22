@@ -62,11 +62,12 @@ JEX core team creates the proposal in the governance smart contract.
 - endpoint: `createProposal`
 - value: `0` EGLD
 - arguments:
+  - proposal id
   - label
-  - proposal tx hash (see [here](#submit-the-proposal))
   - vote start timestamp (seconds)
   - vote end timestamp (seconds)
   - number of vote choices (eg `2` for a `Yes/No` vote)
+  - proposal tx hash (see [here](#submit-the-proposal))
 
 A NFT is automatically minted during this process. It will remain in the smart contract.
 

@@ -46,7 +46,7 @@
       "tx": {
         "from": "address:owner",
         "contractCode": "file:../output/jex-sc-governance.wasm",
-        "arguments": ["sc:locker"],
+        "arguments": ["sc:locker", "str:COLL-000000"],
         "gasLimit": "5,000,000",
         "gasPrice": "0"
       },
@@ -64,6 +64,7 @@
         "sc:gov": {
           "code": "*",
           "storage": {
+            "str:proposal_nft_collection_id": "str:COLL-000000",
             "str:sc_locker_address": "sc:locker"
           }
         },
