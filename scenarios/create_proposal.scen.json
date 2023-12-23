@@ -60,12 +60,12 @@
               "lastNonce": "32",
               "instances": [
                 {
-                  "attributes": "0x3030303030303030303030303030303030303030303030303030303030303030",
+                  "attributes": "",
                   "balance": "1",
                   "creator": "sc:gov",
                   "nonce": "32",
                   "royalties": "0",
-                  "uri": [""]
+                  "uri": ["str:mvx://00000000000000000000000000000000/data"]
                 }
               ],
               "roles": ["ESDTRoleNFTCreate"]

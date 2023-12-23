@@ -66,12 +66,20 @@ pub trait ProposalModule {
         let collection_id = self.proposal_nft_collection_id().get();
 
         let name = sc_format!("{}{}", NFT_NAME_PREFIX, id);
+        let uri = sc_format!("mvx://{}/data", content_tx_hash.as_managed_buffer());
 
-        let nft_nonce = self.send().esdt_nft_create_compact_named(
+        let big_zero = BigUint::zero();
+        let empty_buffer = ManagedBuffer::new();
+        let uris = ManagedVec::from_single_item(uri);
+
+        let nft_nonce = self.send().esdt_nft_create(
             &collection_id,
             &BigUint::from(1u32),
             &name,
-            &content_tx_hash,
+            &big_zero,
+            &empty_buffer,
+            &empty_buffer,
+            &uris,
         );
 
         nft_nonce
