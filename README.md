@@ -77,7 +77,7 @@ Ongoing proposals are displayed in JEXchangeDefi application at https://app.jexc
 
 During a proposal voting period, voters can vote using the `vote` endpoint in the governance smart contract.
 
-- endpoint: `createProposal`
+- endpoint: `vote`
 - value: `0` EGLD
 - arguments:
   - vote choice
