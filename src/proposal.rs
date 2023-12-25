@@ -66,7 +66,7 @@ pub trait ProposalModule {
         let collection_id = self.proposal_nft_collection_id().get();
 
         let name = sc_format!("{}{}", NFT_NAME_PREFIX, id);
-        let uri = sc_format!("mvx://{}/data", content_tx_hash.as_managed_buffer());
+        let uri = sc_format!("mvx://{:x}/data", content_tx_hash.as_managed_buffer());
 
         let big_zero = BigUint::zero();
         let empty_buffer = ManagedBuffer::new();

@@ -65,7 +65,9 @@
                   "creator": "sc:gov",
                   "nonce": "32",
                   "royalties": "0",
-                  "uri": ["str:mvx://00000000000000000000000000000000/data"]
+                  "uri": [
+                    "str:mvx://3030303030303030303030303030303030303030303030303030303030303030/data"
+                  ]
                 }
               ],
               "roles": ["ESDTRoleNFTCreate"]
