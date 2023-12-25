@@ -7,6 +7,10 @@
     {
       "step": "setState",
       "accounts": {
+        "address:admin": {
+          "nonce": "1",
+          "balance": "0"
+        },
         "sc:gov": {
           "code": "file:../output/jex-sc-governance.wasm",
           "esdt": {
@@ -17,6 +21,7 @@
           },
           "owner": "address:owner",
           "storage": {
+            "str:admin_address": "address:admin",
             "str:proposal_nft_collection_id": "str:COLL-000000"
           }
         }
@@ -28,7 +33,7 @@
     {
       "step": "scCall",
       "tx": {
-        "from": "address:owner",
+        "from": "address:admin",
         "to": "sc:gov",
         "function": "createProposal",
         "arguments": [

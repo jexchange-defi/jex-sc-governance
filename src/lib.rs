@@ -28,7 +28,7 @@ pub trait JexScGovernanceContract: locker::LockerModule + proposal::ProposalModu
         nb_choices: u8,
         content_tx_hash: ManagedByteArray<Self::Api, 32>,
     ) -> u64 {
-        // TODO require admin
+        self.require_is_caller_admin();
 
         self.do_create_proposal(
             id,
@@ -40,10 +40,27 @@ pub trait JexScGovernanceContract: locker::LockerModule + proposal::ProposalModu
         )
     }
 
+    #[endpoint(setAdmin)]
+    #[only_owner]
+    fn set_admin(&self, address: ManagedAddress) {
+        self.admin_address().set(&address);
+    }
+
+    fn require_is_caller_admin(&self) {
+        require!(
+            self.admin_address().get() == self.blockchain().get_caller(),
+            "Not admin"
+        );
+    }
+
     #[view(getVotingPower)]
     fn get_voting_power(&self, address: ManagedAddress) -> BigUint {
         let voting_power = self.get_reward_power(&address);
 
         voting_power
     }
+
+    #[view(getAdminAddress)]
+    #[storage_mapper("admin_address")]
+    fn admin_address(&self) -> SingleValueMapper<ManagedAddress>;
 }

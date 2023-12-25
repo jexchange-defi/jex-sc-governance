@@ -7,9 +7,14 @@
     {
       "step": "setState",
       "accounts": {
+        "address:admin": {
+          "nonce": "1",
+          "balance": "0"
+        },
         "sc:gov": {
           "code": "file:../output/jex-sc-governance.wasm",
           "storage": {
+            "str:admin_address": "address:admin",
             "str:proposal|u64:32": "u64:32|nested:str:Proposal with spaces|u64:32|u64:1000000|u64:1100000|u8:2|0x3030303030303030303030303030303030303030303030303030303030303030"
           }
         }
@@ -18,7 +23,7 @@
     {
       "step": "scCall",
       "tx": {
-        "from": "address:owner",
+        "from": "address:admin",
         "to": "sc:gov",
         "function": "createProposal",
         "arguments": [

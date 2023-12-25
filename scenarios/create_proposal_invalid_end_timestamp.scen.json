@@ -5,9 +5,25 @@
       "path": "deploy.scen.json"
     },
     {
+      "step": "setState",
+      "accounts": {
+        "address:admin": {
+          "nonce": "1",
+          "balance": "0"
+        },
+        "sc:gov": {
+          "code": "file:../output/jex-sc-governance.wasm",
+          "owner": "address:owner",
+          "storage": {
+            "str:admin_address": "address:admin"
+          }
+        }
+      }
+    },
+    {
       "step": "scCall",
       "tx": {
-        "from": "address:owner",
+        "from": "address:admin",
         "to": "sc:gov",
         "function": "createProposal",
         "arguments": [
