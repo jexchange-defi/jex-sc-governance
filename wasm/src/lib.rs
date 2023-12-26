@@ -5,9 +5,9 @@
 ////////////////////////////////////////////////////
 
 // Init:                                 1
-// Endpoints:                            8
+// Endpoints:                           11
 // Async Callback (empty):               1
-// Total number of exported functions:  10
+// Total number of exported functions:  13
 
 #![no_std]
 
@@ -25,11 +25,14 @@ multiversx_sc_wasm_adapter::endpoints! {
         upgrade => upgrade
         createProposal => create_proposal
         setAdmin => set_admin
+        vote => vote
         getVotingPower => get_voting_power
         getAdminAddress => admin_address
         getLockerScAddress => sc_locker_address
         getProposal => proposal
         getProposalNftCollectionId => proposal_nft_collection_id
+        getVoteResults => vote_results
+        getVoters => voters
     )
 }
 

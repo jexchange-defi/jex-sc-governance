@@ -16,5 +16,5 @@ fn world() -> ScenarioWorld {
 
 #[test]
 fn test_rs() {
-    world().run("scenarios/create_proposal.scen.json");
+    world().run("scenarios/vote_proposal_no_voting_power.scen.json");
 }

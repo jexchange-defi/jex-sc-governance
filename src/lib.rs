@@ -46,6 +46,12 @@ pub trait JexScGovernanceContract: locker::LockerModule + proposal::ProposalModu
         self.admin_address().set(&address);
     }
 
+    /// Note: *choice* starting index = 1
+    #[endpoint(vote)]
+    fn vote(&self, proposal_id: u64, choice: u8) {
+        self.do_vote_proposal(proposal_id, choice);
+    }
+
     fn require_is_caller_admin(&self) {
         require!(
             self.admin_address().get() == self.blockchain().get_caller(),
