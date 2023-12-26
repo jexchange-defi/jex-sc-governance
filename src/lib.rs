@@ -40,6 +40,19 @@ pub trait JexScGovernanceContract: locker::LockerModule + proposal::ProposalModu
         )
     }
 
+    /// Cleanup data for a past proposal.
+    /// Endpoint should be called until it returns *true* when the cleanup is complete.
+    /// Use *max_voters* to limit the gas.
+    ///
+    /// Return *true* if cleanup is finished, *false* otherwise.
+    #[endpoint(cleanup)]
+    #[only_owner]
+    fn cleanup(&self, proposal_id: u64, max_voters: usize) -> bool {
+        let complete = self.do_cleanup_voters(proposal_id, max_voters);
+
+        complete
+    }
+
     #[endpoint(setAdmin)]
     #[only_owner]
     fn set_admin(&self, address: ManagedAddress) {

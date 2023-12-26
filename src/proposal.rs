@@ -25,6 +25,25 @@ const NFT_NAME_PREFIX: &[u8] = b"JIP-";
 
 #[multiversx_sc::module]
 pub trait ProposalModule: crate::locker::LockerModule {
+    fn do_cleanup_voters(&self, proposal_id: u64, limit: usize) -> bool {
+        let proposal = self.require_proposal_exists(proposal_id);
+
+        require!(
+            self.blockchain().get_block_timestamp() > proposal.end_vote_timestamp,
+            "Vote not ended"
+        );
+
+        for _i in 1..=self.voters(proposal_id).len().min(limit) {
+            let last_index = self.voters(proposal_id).len();
+
+            let voter = self.voters(proposal_id).get_by_index(last_index);
+
+            self.voters(proposal_id).swap_remove(&voter);
+        }
+
+        self.voters(proposal_id).is_empty()
+    }
+
     fn do_create_proposal(
         &self,
         id: u64,
