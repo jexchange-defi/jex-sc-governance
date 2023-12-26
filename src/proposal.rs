@@ -1,7 +1,7 @@
 multiversx_sc::imports!();
 multiversx_sc::derive_imports!();
 
-#[derive(TopDecode, TopEncode, TypeAbi)]
+#[derive(ManagedVecItem, NestedDecode, NestedEncode, TopDecode, TopEncode, TypeAbi)]
 pub struct Proposal<M: ManagedTypeApi> {
     id: u64,
     label: ManagedBuffer<M>,
@@ -10,6 +10,12 @@ pub struct Proposal<M: ManagedTypeApi> {
     end_vote_timestamp: u64,
     nb_choices: u8,
     content_tx_hash: ManagedByteArray<M, 32>,
+}
+
+#[derive(ManagedVecItem, TopDecode, TopEncode, TypeAbi)]
+pub struct ProposalAndVotes<M: ManagedTypeApi> {
+    proposal: Proposal<M>,
+    votes: ManagedVec<M, BigUint<M>>,
 }
 
 const LABEL_MIN_LENGTH: usize = 10usize;
@@ -60,6 +66,22 @@ pub trait ProposalModule: crate::locker::LockerModule {
         self.proposal(id).set(&proposal);
 
         nft_nonce
+    }
+
+    fn do_get_proposal_and_votes(&self, proposal_id: u64) -> Option<ProposalAndVotes<Self::Api>> {
+        let res = if self.proposal(proposal_id).is_empty() {
+            Option::None
+        } else {
+            let proposal = self.proposal(proposal_id).get();
+
+            let votes = (1u8..=proposal.nb_choices)
+                .map(|choice| self.vote_results(proposal_id, choice).get())
+                .collect();
+
+            Option::Some(ProposalAndVotes::<Self::Api> { proposal, votes })
+        };
+
+        res
     }
 
     fn do_vote_proposal(&self, proposal_id: u64, choice: u8) {

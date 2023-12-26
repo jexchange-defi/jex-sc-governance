@@ -1,0 +1,72 @@
+{
+  "steps": [
+    {
+      "step": "externalSteps",
+      "path": "deploy.scen.json"
+    },
+    {
+      "step": "setState",
+      "accounts": {
+        "sc:gov": {
+          "code": "file:../output/jex-sc-governance.wasm",
+          "owner": "address:owner",
+          "storage": {
+            "str:proposal|u64:1": "u64:4|nested:str:Proposal 01|u64:32|u64:1000000|u64:1100000|u8:2|0x3030303030303030303030303030303030303030303030303030303030303030",
+            "str:proposal|u64:2": "u64:4|nested:str:Proposal 02|u64:32|u64:2000000|u64:2100000|u8:3|0x3030303030303030303030303030303030303030303030303030303030303030",
+            "str:proposal|u64:3": "u64:4|nested:str:Proposal 03|u64:32|u64:3000000|u64:3100000|u8:2|0x3030303030303030303030303030303030303030303030303030303030303030",
+            "str:proposal|u64:4": "u64:4|nested:str:Proposal 04|u64:32|u64:4000000|u64:4100000|u8:4|0x3030303030303030303030303030303030303030303030303030303030303030",
+            "str:proposal|u64:5": "u64:4|nested:str:Proposal 05|u64:32|u64:5000000|u64:5100000|u8:5|0x3030303030303030303030303030303030303030303030303030303030303030",
+            "str:vote_results|u64:1|u8:1": "40000",
+            "str:vote_results|u64:1|u8:2": "90000",
+            "str:vote_results|u64:2|u8:1": "",
+            "str:vote_results|u64:2|u8:2": "50000",
+            "str:vote_results|u64:2|u8:3": "10000",
+            "str:vote_results|u64:3|u8:1": "30000",
+            "str:vote_results|u64:3|u8:2": "80000",
+            "str:vote_results|u64:4|u8:1": "10000",
+            "str:vote_results|u64:4|u8:2": "10000",
+            "str:vote_results|u64:4|u8:3": "10000",
+            "str:vote_results|u64:4|u8:4": "10000",
+            "str:vote_results|u64:5|u8:1": "10000",
+            "str:vote_results|u64:5|u8:2": "20000",
+            "str:vote_results|u64:5|u8:3": "",
+            "str:vote_results|u64:5|u8:4": "40000",
+            "str:vote_results|u64:5|u8:5": "50000"
+          }
+        }
+      }
+    },
+    {
+      "step": "scQuery",
+      "tx": {
+        "to": "sc:gov",
+        "function": "getProposals",
+        "arguments": ["1", "11"]
+      },
+      "expect": {
+        "out": [
+          {
+            "01-proposal": "u64:4|nested:str:Proposal 01|u64:32|u64:1000000|u64:1100000|u8:2|0x3030303030303030303030303030303030303030303030303030303030303030",
+            "02-votes": "u32:2|biguint:40000|biguint:90000"
+          },
+          {
+            "01-proposal": "u64:4|nested:str:Proposal 02|u64:32|u64:2000000|u64:2100000|u8:3|0x3030303030303030303030303030303030303030303030303030303030303030",
+            "02-votes": "u32:3|biguint:0|biguint:50000|biguint:10000"
+          },
+          {
+            "01-proposal": "u64:4|nested:str:Proposal 03|u64:32|u64:3000000|u64:3100000|u8:2|0x3030303030303030303030303030303030303030303030303030303030303030",
+            "02-votes": "u32:2|biguint:30000|biguint:80000"
+          },
+          {
+            "01-proposal": "u64:4|nested:str:Proposal 04|u64:32|u64:4000000|u64:4100000|u8:4|0x3030303030303030303030303030303030303030303030303030303030303030",
+            "02-votes": "u32:4|biguint:10000|biguint:10000|biguint:10000|biguint:10000"
+          },
+          {
+            "01-proposal": "u64:4|nested:str:Proposal 05|u64:32|u64:5000000|u64:5100000|u8:5|0x3030303030303030303030303030303030303030303030303030303030303030",
+            "02-votes": "u32:5|biguint:10000|biguint:20000|biguint:0|biguint:40000|biguint:50000"
+          }
+        ]
+      }
+    }
+  ]
+}

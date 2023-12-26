@@ -59,6 +59,24 @@ pub trait JexScGovernanceContract: locker::LockerModule + proposal::ProposalModu
         );
     }
 
+    #[view(getProposals)]
+    fn get_proposals(
+        &self,
+        first: u64,
+        last: u64,
+    ) -> MultiValueEncoded<proposal::ProposalAndVotes<Self::Api>> {
+        let mut res = ManagedVec::<Self::Api, proposal::ProposalAndVotes<Self::Api>>::new();
+
+        for proposal_id in first..last {
+            match self.do_get_proposal_and_votes(proposal_id) {
+                None => (),
+                Some(proposal_and_votes) => res.push(proposal_and_votes),
+            }
+        }
+
+        res.into()
+    }
+
     #[view(getVotingPower)]
     fn get_voting_power(&self, address: ManagedAddress) -> BigUint {
         let voting_power = self.get_reward_power(&address);
