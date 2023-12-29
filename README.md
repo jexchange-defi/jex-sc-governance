@@ -29,7 +29,7 @@ The proposal consists of a raw text document.
 
 It MUST contain:
 
-- an introduction
+- a meaningful and concise subject/title
 - a description of the proposed improvement(s), and for each improvement:
   - pros and cons
   - estimated cost(s)
