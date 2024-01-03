@@ -60,7 +60,7 @@ createProposal() {
     read -p "Label: " LABEL
     read -p "Start vote timestamp (s): " START_VOTE_TIMESTAMP
     read -p "End vote timestamp (s): " END_VOTE_TIMESTAMP
-    read -p "Nb choice: " NB_CHOICES
+    read -p "Nb choices: " NB_CHOICES
     read -p "Proposal content tx hash: " CONTENT_TX_HASH
 
     mxpy contract call ${SC_ADDRESS} \
@@ -98,6 +98,12 @@ getProposals() {
         --function "getProposals" --arguments "${FIRST}" "${LAST}" \
         --proxy=${PROXY} \
         | jq -r .[].hex
+}
+
+getProposalNftCollectionId() {
+    mxpy contract query ${SC_ADDRESS} --function "getProposalNftCollectionId" --proxy=${PROXY} \
+        | jq -r .[].hex | xxd -r -p
+    echo ""
 }
 
 getVotingPower() {
