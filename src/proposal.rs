@@ -180,4 +180,9 @@ pub trait ProposalModule: crate::locker::LockerModule {
     #[view(getVoters)]
     #[storage_mapper("voters")]
     fn voters(&self, proposal_id: u64) -> UnorderedSetMapper<ManagedAddress>;
+
+    #[view(hasVoted)]
+    fn has_voted(&self, proposal_id: u64, voter: &ManagedAddress) -> bool {
+        self.voters(proposal_id).contains(voter)
+    }
 }
