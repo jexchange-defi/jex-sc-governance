@@ -5,7 +5,10 @@
 echo "Proxy: ${PROXY}"
 echo "SC address: ${SC_ADDRESS:-Not deployed}"
 
-SC_ADDRESS_HEX="$(mxpy wallet bech32 --decode "${SC_ADDRESS}")"
+if [ "${SC_ADDRESS}" != "" ]
+then
+    SC_ADDRESS_HEX="$(mxpy wallet bech32 --decode "${SC_ADDRESS}")"
+fi
 NFT_COLLECTION_ID_HEX="$(echo -n "${NFT_COLLECTION_ID}" | xxd -ps)"
 
 ##
@@ -69,7 +72,8 @@ createProposal() {
             "${START_VOTE_TIMESTAMP}" "${END_VOTE_TIMESTAMP}" \
             "${NB_CHOICES}" "0x${CONTENT_TX_HASH}" \
         --gas-limit=10000000 \
-        --pem=${1} --proxy=${PROXY} --chain=${CHAIN} --recall-nonce --send || return
+        --keyfile=${1} --proxy=${PROXY} --chain=${CHAIN} --recall-nonce --simulate \
+            | jq .emittedTransactionData
 }
 
 ##

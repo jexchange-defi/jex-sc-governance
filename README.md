@@ -89,3 +89,30 @@ Note that if a voter increases its governance power after submitting a vote, the
 ### Implementation
 
 If a proposal is accepted, JEXchangeDefi core team MUST take actions as soon as possible to implement it.
+
+## Get started
+
+Create a NFT collection with `canTransferNFTCreateRole` flag set to `true`.
+
+Compile and deploy the smart contract.
+
+Transfer `ESDTRoleNFTCreate` role to the smart contract.
+
+```
+Tx receiver: erd1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqzllls8a5w6u
+Gas limit: 51000000
+Data:
+
+setSpecialRole
+@
+JIP-df3784 in hex
+@
+SC address in hex
+@
+ESDTRoleNFTCreate in hex = 45534454526f6c654e4654437265617465
+
+example:
+setSpecialRole@4a49502d646633373834@00000000000000000500459a483a20bc4f4ea2fded891109fbefe7809d4fd759@45534454526f6c654e4654437265617465
+```
+
+Call `setAdmin` endpoint to configure admin account.
