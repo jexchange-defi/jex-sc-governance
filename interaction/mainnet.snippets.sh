@@ -13,7 +13,7 @@ NFT_COLLECTION_ID=JIP-df3784
 source "${SCRIPT_DIR}/_common.snippets.sh"
 
 # Reproducible build using:
-# mxpy contract reproducible-build --docker-image="multiversx/sdk-rust-contract-builder:v5.3.0"
+# mxpy contract reproducible-build --docker-image="multiversx/sdk-rust-contract-builder:v5.4.0"
 deploy() {
     echo 'You are about to deploy SC on mainnet (Ctrl-C to abort)'
     read answer
@@ -41,6 +41,14 @@ upgrade() {
 
     echo ""
     echo "Smart contract upgraded: ${SC_ADDRESS}"
+}
+
+verify() {
+    mxpy contract verify "${SC_ADDRESS}" \
+        --packaged-src=../output-docker/jex-sc-governance/jex-sc-governance-0.0.0.source.json \
+        --verifier-url="https://play-api.multiversx.com" \
+        --docker-image="multiversx/sdk-rust-contract-builder:v5.4.0" \
+        --keyfile=${1}
 }
 
 CMD=$1
