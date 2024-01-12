@@ -11,7 +11,7 @@ NFT_COLLECTION_ID=JIP-c2a017
 source "${SCRIPT_DIR}/_common.snippets.sh"
 
 # Reproducible build using:
-# mxpy contract reproducible-build --docker-image="multiversx/sdk-rust-contract-builder:v5.3.0"
+# mxpy contract reproducible-build --docker-image="multiversx/sdk-rust-contract-builder:v5.5.0"
 deploy() {
     echo 'You are about to deploy SC on devnet (Ctrl-C to abort)'
     read answer
