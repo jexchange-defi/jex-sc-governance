@@ -2,7 +2,7 @@ multiversx_sc::imports!();
 
 #[multiversx_sc::module]
 pub trait LockerModule {
-    fn get_reward_power(&self, address: &ManagedAddress) -> BigUint {
+    fn get_reward_power(&self, address: &ManagedAddress) -> (BigUint, u64) {
         let lock_mapper = self.lock_of(self.sc_locker_address().get(), address);
 
         if !lock_mapper.is_empty() {
@@ -11,9 +11,9 @@ pub trait LockerModule {
                 .get_lock_of(address)
                 .execute_on_dest_context::<crate::locker_sc_proxy::LockOut<Self::Api>>();
 
-            lock.reward_power
+            (lock.reward_power, lock.remaining_epochs)
         } else {
-            BigUint::zero()
+            (BigUint::zero(), 0u64)
         }
     }
 

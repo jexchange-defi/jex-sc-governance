@@ -90,7 +90,9 @@ pub trait JexScGovernanceContract: locker::LockerModule + proposal::ProposalModu
 
     #[view(getVotingPower)]
     fn get_voting_power(&self, address: ManagedAddress) -> BigUint {
-        self.get_reward_power(&address)
+        let (voting_power, _) = self.get_reward_power(&address);
+
+        voting_power
     }
 
     #[view(getAdminAddress)]

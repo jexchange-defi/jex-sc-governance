@@ -13,7 +13,7 @@ pub struct Lock<M: ManagedTypeApi> {
 pub struct LockOut<M: ManagedTypeApi> {
     amount: BigUint<M>,
     unlock_epoch: u64,
-    remaining_epochs: u64,
+    pub remaining_epochs: u64,
     pub reward_power: BigUint<M>,
 }
 

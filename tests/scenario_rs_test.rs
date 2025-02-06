@@ -120,6 +120,11 @@ fn vote_proposal_invalid_choice_rs() {
 }
 
 #[test]
+fn vote_proposal_lock_too_short_rs() {
+    world().run("scenarios/vote_proposal_lock_too_short.scen.json");
+}
+
+#[test]
 fn vote_proposal_no_voting_power_rs() {
     world().run("scenarios/vote_proposal_no_voting_power.scen.json");
 }
