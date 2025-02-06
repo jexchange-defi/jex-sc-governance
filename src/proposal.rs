@@ -1,7 +1,8 @@
 multiversx_sc::imports!();
 multiversx_sc::derive_imports!();
 
-#[derive(ManagedVecItem, NestedDecode, NestedEncode, TopDecode, TopEncode, TypeAbi)]
+#[type_abi]
+#[derive(ManagedVecItem, NestedDecode, NestedEncode, TopDecode, TopEncode)]
 pub struct Proposal<M: ManagedTypeApi> {
     id: u64,
     label: ManagedBuffer<M>,
@@ -12,7 +13,8 @@ pub struct Proposal<M: ManagedTypeApi> {
     content_tx_hash: ManagedByteArray<M, 32>,
 }
 
-#[derive(ManagedVecItem, TopDecode, TopEncode, TypeAbi)]
+#[type_abi]
+#[derive(ManagedVecItem, TopDecode, TopEncode)]
 pub struct ProposalAndVotes<M: ManagedTypeApi> {
     proposal: Proposal<M>,
     votes: ManagedVec<M, BigUint<M>>,

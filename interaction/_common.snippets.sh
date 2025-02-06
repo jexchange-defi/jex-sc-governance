@@ -110,6 +110,17 @@ getProposalNftCollectionId() {
     echo ""
 }
 
+getVoters() {
+    read -p "Proposal ID: " PROPOSAL_ID
+
+    mxpy contract query ${SC_ADDRESS} --function "getVoters" --arguments "${PROPOSAL_ID}" --proxy=${PROXY} \
+        | jq -r .[].hex | while read a
+            do
+                mxpy wallet bech32 --encode "${a}"
+            done
+    echo ""
+}
+
 getVotingPower() {
     read -p "Address: " ADDRESS
     

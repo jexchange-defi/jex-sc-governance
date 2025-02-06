@@ -1,13 +1,15 @@
 multiversx_sc::imports!();
 multiversx_sc::derive_imports!();
 
-#[derive(TopDecode, TopEncode, TypeAbi)]
+#[type_abi]
+#[derive(TopDecode, TopEncode)]
 pub struct Lock<M: ManagedTypeApi> {
     amount: BigUint<M>,
     unlock_epoch: u64,
 }
 
-#[derive(ManagedVecItem, NestedDecode, NestedEncode, TopDecode, TopEncode, TypeAbi)]
+#[type_abi]
+#[derive(ManagedVecItem, NestedDecode, NestedEncode, TopDecode, TopEncode)]
 pub struct LockOut<M: ManagedTypeApi> {
     amount: BigUint<M>,
     unlock_epoch: u64,
