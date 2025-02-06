@@ -5,20 +5,16 @@ pub trait LockerModule {
     fn get_reward_power(&self, address: &ManagedAddress) -> BigUint {
         let lock_mapper = self.lock_of(self.sc_locker_address().get(), address);
 
-        let voting_power;
-
         if !lock_mapper.is_empty() {
             let lock = self
                 .locker_sc_proxy(self.sc_locker_address().get())
                 .get_lock_of(address)
                 .execute_on_dest_context::<crate::locker_sc_proxy::LockOut<Self::Api>>();
 
-            voting_power = lock.reward_power;
+            lock.reward_power
         } else {
-            voting_power = BigUint::zero();
+            BigUint::zero()
         }
-
-        voting_power
     }
 
     /// Check if the given address has deposit funds in the locker.

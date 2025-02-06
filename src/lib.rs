@@ -48,9 +48,7 @@ pub trait JexScGovernanceContract: locker::LockerModule + proposal::ProposalModu
     #[endpoint(cleanup)]
     #[only_owner]
     fn cleanup(&self, proposal_id: u64, max_voters: usize) -> bool {
-        let complete = self.do_cleanup_voters(proposal_id, max_voters);
-
-        complete
+        self.do_cleanup_voters(proposal_id, max_voters)
     }
 
     #[endpoint(setAdmin)]
@@ -92,9 +90,7 @@ pub trait JexScGovernanceContract: locker::LockerModule + proposal::ProposalModu
 
     #[view(getVotingPower)]
     fn get_voting_power(&self, address: ManagedAddress) -> BigUint {
-        let voting_power = self.get_reward_power(&address);
-
-        voting_power
+        self.get_reward_power(&address)
     }
 
     #[view(getAdminAddress)]

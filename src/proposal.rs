@@ -148,7 +148,7 @@ pub trait ProposalModule: crate::locker::LockerModule {
         let empty_buffer = ManagedBuffer::new();
         let uris = ManagedVec::from_single_item(uri);
 
-        let nft_nonce = self.send().esdt_nft_create(
+        self.send().esdt_nft_create(
             &collection_id,
             &BigUint::from(1u32),
             &name,
@@ -156,9 +156,7 @@ pub trait ProposalModule: crate::locker::LockerModule {
             &empty_buffer,
             &empty_buffer,
             &uris,
-        );
-
-        nft_nonce
+        )
     }
 
     fn require_proposal_exists(&self, proposal_id: u64) -> Proposal<Self::Api> {
