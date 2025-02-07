@@ -90,8 +90,7 @@ isVoter() {
 }
 
 getAdminAddress() {
-    mxpy contract query ${SC_ADDRESS} --function "getAdminAddress" --proxy=${PROXY} \
-        | jq -r .[].hex
+    mxpy contract query ${SC_ADDRESS} --function "getAdminAddress" --proxy=${PROXY}
 }
 
 getProposals() {
@@ -100,21 +99,18 @@ getProposals() {
 
     mxpy contract query ${SC_ADDRESS} \
         --function "getProposals" --arguments "${FIRST}" "${LAST}" \
-        --proxy=${PROXY} \
-        | jq -r .[].hex
+        --proxy=${PROXY}
 }
 
 getProposalNftCollectionId() {
-    mxpy contract query ${SC_ADDRESS} --function "getProposalNftCollectionId" --proxy=${PROXY} \
-        | jq -r .[].hex | xxd -r -p
-    echo ""
+    mxpy contract query ${SC_ADDRESS} --function "getProposalNftCollectionId" --proxy=${PROXY}
 }
 
 getVoters() {
     read -p "Proposal ID: " PROPOSAL_ID
 
     mxpy contract query ${SC_ADDRESS} --function "getVoters" --arguments "${PROPOSAL_ID}" --proxy=${PROXY} \
-        | jq -r .[].hex | while read a
+        | jq -r .[] | while read a
             do
                 mxpy wallet bech32 --encode "${a}"
             done
