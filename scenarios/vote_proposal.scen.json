@@ -7,7 +7,11 @@
     {
       "step": "setState",
       "accounts": {
-        "address:user": {
+        "address:user1": {
+          "nonce": "1",
+          "balance": "0"
+        },
+        "address:user2": {
           "nonce": "1",
           "balance": "0"
         },
@@ -23,7 +27,8 @@
           "code": "file:../locker-mock/output/locker-mock.wasm",
           "owner": "address:owner",
           "storage": {
-            "str:lock_of|address:user": "biguint:10000,000000000000000000|u64:1180"
+            "str:lock_of|address:user1": "biguint:10000,000000000000000000|u64:1180",
+            "str:lock_of|address:user2": "biguint:1000,000000000000000000|u64:1045"
           }
         }
       },
@@ -35,7 +40,7 @@
     {
       "step": "scCall",
       "tx": {
-        "from": "address:user",
+        "from": "address:user1",
         "to": "sc:gov",
         "function": "vote",
         "arguments": ["32", "1"],
@@ -57,8 +62,43 @@
           "storage": {
             "str:vote_results|u64:32|u8:1": "40000,000000000000000000",
             "str:voters|u64:32|str:.len": "1",
-            "str:voters|u64:32|str:.index|address:user": "1",
-            "str:voters|u64:32|str:.item|u32:1": "address:user",
+            "str:voters|u64:32|str:.index|address:user1": "1",
+            "str:voters|u64:32|str:.item|u32:1": "address:user1",
+            "+": "*"
+          }
+        },
+        "+": ""
+      }
+    },
+    {
+      "step": "scCall",
+      "tx": {
+        "from": "address:user2",
+        "to": "sc:gov",
+        "function": "vote",
+        "arguments": ["32", "1"],
+        "gasLimit": "10,000,000",
+        "gasPrice": "0"
+      },
+      "expect": {
+        "status": "0",
+        "message": "",
+        "gas": "*",
+        "refund": "*"
+      }
+    },
+    {
+      "step": "checkState",
+      "accounts": {
+        "sc:gov": {
+          "code": "*",
+          "storage": {
+            "str:vote_results|u64:32|u8:1": "41000,000000000000000000",
+            "str:voters|u64:32|str:.len": "2",
+            "str:voters|u64:32|str:.index|address:user1": "1",
+            "str:voters|u64:32|str:.item|u32:1": "address:user1",
+            "str:voters|u64:32|str:.index|address:user2": "2",
+            "str:voters|u64:32|str:.item|u32:2": "address:user2",
             "+": "*"
           }
         },

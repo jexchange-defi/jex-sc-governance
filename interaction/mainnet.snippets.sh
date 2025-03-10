@@ -4,6 +4,8 @@ set -eu
 
 BYTECODE=../output-docker/jex-sc-governance/jex-sc-governance.wasm
 PROXY=https://gateway.multiversx.com
+MVX_TOOLS_URL=https://tools.multiversx.com
+GUARDIAN_ADDRESS=erd1cvt4665apw4wwmjervlncdnhags8hdpu3l9rpca8y4xtz6njmyfqxatz8n
 SC_ADDRESS=$(mxpy data load --key=address-mainnet)
 CHAIN=1
 SCRIPT_DIR=$(dirname $0)
@@ -34,9 +36,16 @@ upgrade() {
     echo 'You are about to upgrade current SC on mainnet (Ctrl-C to abort)'
     read answer
 
+    read -p "2FA code: " TWO_FA_CODE
+
     mxpy contract upgrade --bytecode=${BYTECODE} \
         --keyfile=${1} --gas-limit=50000000 --outfile="deploy-mainnet.interaction.json" \
-        --proxy=${PROXY} --chain=${CHAIN} --recall-nonce --send ${SC_ADDRESS} || return
+        --proxy=${PROXY} --chain=${CHAIN} \
+        --guardian "${GUARDIAN_ADDRESS}" \
+        --guardian-service-url "${MVX_TOOLS_URL}/guardian" \
+        --guardian-2fa-code "${TWO_FA_CODE}" \
+        --version 2 --options 2 \
+        --recall-nonce --send ${SC_ADDRESS} || return
 
     echo ""
     echo "Smart contract upgraded: ${SC_ADDRESS}"

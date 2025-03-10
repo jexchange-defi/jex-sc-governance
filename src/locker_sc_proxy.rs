@@ -11,7 +11,7 @@ pub struct Lock<M: ManagedTypeApi> {
 #[type_abi]
 #[derive(ManagedVecItem, NestedDecode, NestedEncode, TopDecode, TopEncode)]
 pub struct LockOut<M: ManagedTypeApi> {
-    amount: BigUint<M>,
+    pub amount: BigUint<M>,
     unlock_epoch: u64,
     pub remaining_epochs: u64,
     pub reward_power: BigUint<M>,

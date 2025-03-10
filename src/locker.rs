@@ -11,7 +11,11 @@ pub trait LockerModule {
                 .get_lock_of(address)
                 .execute_on_dest_context::<crate::locker_sc_proxy::LockOut<Self::Api>>();
 
-            (lock.reward_power, lock.remaining_epochs)
+            // recalculate voting power
+            let nb_epochs = lock.remaining_epochs.max(0).min(180);
+            let voting_power = (lock.amount * nb_epochs * 4u32) / 180u32;
+
+            (voting_power, lock.remaining_epochs)
         } else {
             (BigUint::zero(), 0u64)
         }
