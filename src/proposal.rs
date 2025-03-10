@@ -1,8 +1,6 @@
 multiversx_sc::imports!();
 multiversx_sc::derive_imports!();
 
-static MIN_LOCK_PERIOD: u64 = 30u64;
-
 #[type_abi]
 #[derive(ManagedVecItem, NestedDecode, NestedEncode, TopDecode, TopEncode)]
 pub struct Proposal<M: ManagedTypeApi> {
@@ -131,11 +129,8 @@ pub trait ProposalModule: crate::locker::LockerModule {
         );
 
         // require user has voting power
-        let (voting_power, remaining_epochs) = self.get_reward_power(&caller);
+        let (voting_power, _) = self.get_reward_power(&caller);
         require!(voting_power > 0, "User has no voting power");
-
-        // require lock for long enough period
-        require!(remaining_epochs >= MIN_LOCK_PERIOD, "Lock too short");
 
         self.vote_results(proposal_id, choice)
             .update(|x| *x += voting_power);
