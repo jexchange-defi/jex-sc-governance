@@ -59,6 +59,8 @@ The proposer MUST post the transaction hash on our Discord server in the channel
 
 JEX core team creates the proposal in the governance smart contract.
 
+- receiver:
+  - mainnet: `erd1qqqqqqqqqqqqqpgqgkdysw3qh385aghaaky3zz0malncp8206avs5cqwel`
 - endpoint: `createProposal`
 - value: `0` EGLD
 - arguments:
@@ -68,6 +70,7 @@ JEX core team creates the proposal in the governance smart contract.
   - vote end timestamp (seconds)
   - number of vote choices (eg `2` for a `Yes/No` vote)
   - proposal tx hash (see [here](#submit-the-proposal))
+- gas limit: `10000000` (10 million)
 
 A NFT is automatically minted during this process. It will remain in the smart contract.
 
