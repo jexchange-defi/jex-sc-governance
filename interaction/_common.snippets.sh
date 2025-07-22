@@ -51,7 +51,7 @@ setAdmin() {
         --function="setAdmin" \
         --arguments "${ADMIN_ADDRESS}" \
         --gas-limit=10000000 \
-        --keyfile=${1} --proxy=${PROXY} --chain=${CHAIN} --recall-nonce --send || return
+        --keyfile=${1} --proxy=${PROXY} --chain=${CHAIN} --send || return
 }
 
 ##
@@ -72,8 +72,7 @@ createProposal() {
             "${START_VOTE_TIMESTAMP}" "${END_VOTE_TIMESTAMP}" \
             "${NB_CHOICES}" "0x${CONTENT_TX_HASH}" \
         --gas-limit=10000000 \
-        --keyfile=${1} --proxy=${PROXY} --chain=${CHAIN} --recall-nonce --simulate \
-            | jq .emittedTransactionData
+        --keyfile=${1} --proxy=${PROXY} --chain=${CHAIN} --simulate
 }
 
 ##

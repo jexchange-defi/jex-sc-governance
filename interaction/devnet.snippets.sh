@@ -18,7 +18,7 @@ deploy() {
     mxpy contract deploy --bytecode=${BYTECODE} \
         --keyfile=${1} --gas-limit=50000000 --outfile="deploy-devnet.interaction.json" \
         --arguments "${SC_LOCKER_ADDRESS}" "str:${NFT_COLLECTION_ID}" \
-        --proxy=${PROXY} --chain=${CHAIN} --recall-nonce --send || return
+        --proxy=${PROXY} --chain=${CHAIN} --send || return
     
     SC_ADDRESS=$(cat deploy-devnet.interaction.json | jq -r .contractAddress)
 
@@ -34,7 +34,7 @@ upgrade() {
 
     mxpy contract upgrade --bytecode=${BYTECODE} \
         --keyfile=${1} --gas-limit=50000000 --outfile="deploy-devnet.interaction.json" \
-        --proxy=${PROXY} --chain=${CHAIN} --recall-nonce --send ${SC_ADDRESS} || return
+        --proxy=${PROXY} --chain=${CHAIN} --send ${SC_ADDRESS} || return
 
     echo ""
     echo "Smart contract upgraded: ${SC_ADDRESS}"

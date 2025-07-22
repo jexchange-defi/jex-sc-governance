@@ -22,7 +22,7 @@ deploy() {
     mxpy contract deploy --bytecode=${BYTECODE} \
         --keyfile=${1} --gas-limit=50000000 --outfile="deploy-mainnet.interaction.json" \
         --arguments "${SC_LOCKER_ADDRESS}" "str:${NFT_COLLECTION_ID}" \
-        --proxy=${PROXY} --chain=${CHAIN} --recall-nonce --send || return
+        --proxy=${PROXY} --chain=${CHAIN} --send || return
     
     SC_ADDRESS=$(cat deploy-mainnet.interaction.json | jq -r .contractAddress)
 
@@ -45,7 +45,7 @@ upgrade() {
         --guardian-service-url "${MVX_TOOLS_URL}/guardian" \
         --guardian-2fa-code "${TWO_FA_CODE}" \
         --version 2 --options 2 \
-        --recall-nonce --send ${SC_ADDRESS} || return
+        --send ${SC_ADDRESS} || return
 
     echo ""
     echo "Smart contract upgraded: ${SC_ADDRESS}"
