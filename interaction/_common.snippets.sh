@@ -72,7 +72,7 @@ createProposal() {
             "${START_VOTE_TIMESTAMP}" "${END_VOTE_TIMESTAMP}" \
             "${NB_CHOICES}" "0x${CONTENT_TX_HASH}" \
         --gas-limit=10000000 \
-        --keyfile=${1} --proxy=${PROXY} --chain=${CHAIN} --simulate
+        --keyfile=${1} --proxy=${PROXY} --chain=${CHAIN} --send || return
 }
 
 ##
